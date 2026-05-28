@@ -1,0 +1,138 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 250px;
+  background: #1a1a2e;
+  color: white;
+
+  .sidenav-header {
+    padding: 2rem 1.5rem;
+    .app-name {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+    .user-role {
+      color: #aaa;
+      margin: 0.3rem 0 0 0;
+      font-size: 0.85rem;
+    }
+  }
+
+  .nav-item {
+    color: #ccc;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 0.3rem 0.5rem;
+
+    &:hover {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    &.active {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    &.logout {
+      position: absolute;
+      bottom: 1rem;
+      width: calc(100% - 1rem);
+
+      &:hover {
+        background: rgba(255,0,0,0.2);
+        color: #ff6b6b;
+      }
+    }
+  }
+}
+
+.main-content {
+  background: #f5f6fa;
+}
+
+.toolbar {
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  color: #1a1a2e;
+}
+
+.content-wrapper {
+  padding: 2rem;
+}
+
+.tab-content {
+  padding: 1.5rem 0;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0;
+    color: #1a1a2e;
+  }
+}
+
+.form-card {
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  padding: 1rem;
+
+  .full-width {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.table-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+
+  .full-width { width: 100%; }
+
+  .role-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    &.admin {
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+    &.user {
+      background: #f3e5f5;
+      color: #6a1b9a;
+    }
+  }
+}
+
+.sidenav {
+  mat-list-item {
+    color: white !important;
+  }
+
+  .mdc-list-item__primary-text {
+    color: white !important;
+  }
+
+  mat-icon {
+    color: white !important;
+  }
+}

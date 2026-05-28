@@ -1,0 +1,152 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <!-- Sidebar -->
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="sidenav-header">
+      <h2 class="app-name">UserDesk</h2>
+      <p class="user-role">{{ user?.role }}</p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-nav-list>
+      <mat-list-item class="nav-item active">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </mat-list-item>
+
+      <mat-list-item class="nav-item" *ngIf="isAdmin" (click)="goToAdmin()">
+        <mat-icon matListItemIcon>admin_panel_settings</mat-icon>
+        <span matListItemTitle>Admin Panel</span>
+      </mat-list-item>
+
+      <mat-list-item class="nav-item logout" (click)="logout()">
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span matListItemTitle>Logout</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content class="main-content">
+
+    <!-- Toolbar -->
+    <mat-toolbar class="toolbar">
+      <span>Dashboard</span>
+      <span class="spacer"></span>
+      <span class="welcome-text">Welcome, {{ user?.name }}</span>
+    </mat-toolbar>
+
+    <!-- Loading Bar -->
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+    <div class="content-wrapper">
+
+      <!-- Profile Card -->
+      <mat-card class="profile-card" *ngIf="!loading">
+        <mat-card-header>
+          <div mat-card-avatar class="avatar">
+            {{ user?.name?.charAt(0) }}
+          </div>
+          <mat-card-title>{{ user?.name }}</mat-card-title>
+          <mat-card-subtitle>{{ user?.role }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="profile-details">
+            <div class="detail-item">
+              <mat-icon>badge</mat-icon>
+              <span>{{ user?.userId }}</span>
+            </div>
+            <div class="detail-item">
+              <mat-icon>email</mat-icon>
+              <span>{{ user?.email }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Skeleton Loader for Profile -->
+      <div class="skeleton-card" *ngIf="loading">
+        <div class="skeleton-avatar"></div>
+        <div class="skeleton-lines">
+          <div class="skeleton-line wide"></div>
+          <div class="skeleton-line medium"></div>
+        </div>
+      </div>
+
+      <!-- Announcements Table -->
+      <mat-card class="table-card" *ngIf="!loading">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>campaign</mat-icon>
+            Announcements
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="announcements" class="full-width">
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+            </ng-container>
+            <ng-container matColumnDef="createdBy">
+              <th mat-header-cell *matHeaderCellDef>Created By</th>
+              <td mat-cell *matCellDef="let row">{{ row.createdBy }}</td>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let row">{{ row.date | date:'mediumDate' }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="announcementColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: announcementColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Activity Table (Admin only) -->
+      <mat-card class="table-card" *ngIf="!loading && isAdmin">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>history</mat-icon>
+            User Activity Log
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="activities" class="full-width">
+            <ng-container matColumnDef="userName">
+              <th mat-header-cell *matHeaderCellDef>User</th>
+              <td mat-cell *matCellDef="let row">{{ row.userName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let row">{{ row.action }}</td>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let row">{{ row.date | date:'medium' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let row">
+                <span [class]="'status-badge ' + row.status.toLowerCase()">
+                  {{ row.status }}
+                </span>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="activityColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: activityColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Skeleton Loader for Tables -->
+      <div class="skeleton-table" *ngIf="loading">
+        <div class="skeleton-row" *ngFor="let i of [1,2,3,4,5]"></div>
+      </div>
+
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
