@@ -7,7 +7,7 @@ import { User } from '../../../shared/models/user.model';
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://userdesk-backend.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 

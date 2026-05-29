@@ -7,7 +7,7 @@ import { Announcement } from '../../../shared/models/announcement.model';
   providedIn: 'root'
 })
 export class RecordService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://userdesk-backend.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 

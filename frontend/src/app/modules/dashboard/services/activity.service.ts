@@ -7,7 +7,7 @@ import { Activity } from '../../../shared/models/activity.model';
   providedIn: 'root'
 })
 export class ActivityService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://userdesk-backend.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 
