@@ -1,75 +1,53 @@
-Let's create the README. Create a new file called `README.md` in the root `userdesk/` folder and paste this:
-
-```markdown
 # UserDesk 📋
 
-A full-stack Single Page Application (SPA) built with Angular 21 and Node.js for user management and announcements.
+
+A full-stack **Single Page Application** built with **Angular 21** and **Node.js + TypeScript**, featuring role-based authentication, async data loading, and a cloud-deployed backend.
 
 ---
 
-## 🚀 Live Demo
+## 🔗 Live Demo
 
-> Coming soon after deployment
-
-**Test Credentials:**
+**[https://userdesk-black.vercel.app](https://userdesk-black.vercel.app)**
 
 | Role | User ID | Password |
 |------|---------|----------|
-| Admin | admin001 | Admin@123 |
-| General User | user001 | User@123 |
+| Admin | user005 | admin123 |
+| General User | user006 | user123
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Angular 21, TypeScript, Angular Material, RxJS |
+| Backend | Node.js, Express.js, TypeScript |
+| Database | MongoDB Atlas (Cloud) |
+| Auth | JWT + Bcrypt |
+| Deployment | Vercel (Frontend) + Render (Backend) |
 
 ---
 
 ## 📌 Features
 
 ### General User
-- Secure login with JWT authentication
-- Personal profile card with user details
-- Announcements table — real-time data from API
+- JWT secured login
+- Profile card showing name, email, user ID and role
+- Announcements table — data fetched live from API
 
 ### Admin
 - Everything a General User has
-- User Activity Log — tracks all login activity with timestamps
-- Admin Panel — full user management (add, edit, delete)
-- Announcement management — create and delete announcements
+- User Activity Log — real login timestamps recorded dynamically
+- Admin Panel — add, edit and delete users
+- Announcement management — create announcements visible to all users
 
 ### Technical Highlights
-- **SPA** — Single Page Application, no full page reloads
-- **Async processing** — RxJS `forkJoin` fires multiple API calls simultaneously on dashboard load
-- **Delay parameter** — API supports `?delay=ms` to simulate real-world latency
-- **Skeleton loaders** — smooth loading experience instead of blank screens
-- **Route Guards** — unauthorized users cannot access protected routes
-- **JWT Interceptor** — automatically attaches auth token to every API call
-- **Lazy loading** — Admin module only loads when Admin visits the page
-- **Modular architecture** — separate modules and services for each feature
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-| Technology | Purpose |
-|------------|---------|
-| Angular 21 | SPA Framework |
-| TypeScript | Language |
-| Angular Material | UI Components |
-| RxJS | Async/Reactive programming |
-| Angular Router | SPA Navigation |
-
-### Backend
-| Technology | Purpose |
-|------------|---------|
-| Node.js | Runtime |
-| Express.js | REST API Framework |
-| TypeScript | Language |
-| JWT | Authentication |
-| Bcrypt | Password hashing |
-
-### Database
-| Technology | Purpose |
-|------------|---------|
-| MongoDB Atlas | Cloud Database |
-| Mongoose | ODM |
+- Role-based route guards on both frontend and backend
+- RxJS `forkJoin` fires multiple API calls simultaneously on dashboard load
+- `?delay` parameter on records API to demonstrate async processing
+- Skeleton loaders for smooth loading experience
+- JWT Interceptor automatically attaches token to every API call
+- Admin module is lazy loaded — only downloaded when Admin visits
+- Standalone Angular components throughout
 
 ---
 
@@ -79,20 +57,20 @@ A full-stack Single Page Application (SPA) built with Angular 21 and Node.js for
 userdesk/
 ├── frontend/                   # Angular SPA
 │   └── src/app/
-│       ├── core/               # Guards, Interceptors, Auth Service
-│       ├── shared/             # Models, Reusable components
+│       ├── core/               # Auth guard, Role guard, JWT interceptor
+│       ├── shared/             # TypeScript models
 │       └── modules/
 │           ├── auth/           # Login page
 │           ├── dashboard/      # Dashboard + Services
-│           └── admin/          # Admin Panel (lazy loaded)
+│           └── admin/          # Admin panel (lazy loaded)
 │
 └── backend/                    # Node.js + Express API
     └── src/
-        ├── models/             # MongoDB Schemas
-        ├── controllers/        # Business Logic
-        ├── routes/             # API Endpoints
-        ├── middleware/         # JWT verification
-        └── seed/               # Database seeding
+        ├── models/             # MongoDB schemas
+        ├── controllers/        # Business logic
+        ├── routes/             # API endpoint definitions
+        ├── middleware/         # JWT + role verification
+        └── seed/               # Database seeding script
 ```
 
 ---
@@ -100,75 +78,65 @@ userdesk/
 ## 🔌 API Endpoints
 
 ```
-POST   /api/auth/login              # Login, returns JWT
-GET    /api/users/me                # Get logged in user details
-GET    /api/records?delay=2000      # Get announcements (with optional delay)
-GET    /api/activity                # Get activity logs
-GET    /api/admin/users             # Get all users (Admin only)
-POST   /api/admin/users             # Add new user (Admin only)
-PUT    /api/admin/users/:id         # Edit user (Admin only)
-DELETE /api/admin/users/:id         # Delete user (Admin only)
-POST   /api/admin/announcements     # Create announcement (Admin only)
-DELETE /api/admin/announcements/:id # Delete announcement (Admin only)
+POST   /api/auth/login                   Login, returns JWT token
+GET    /api/users/me                     Get logged in user details
+GET    /api/records?delay=2000           Get announcements with optional delay
+GET    /api/activity                     Get activity logs
+GET    /api/admin/users                  Get all users (Admin only)
+POST   /api/admin/users                  Add new user (Admin only)
+PUT    /api/admin/users/:id              Edit user (Admin only)
+DELETE /api/admin/users/:id              Delete user (Admin only)
+POST   /api/admin/announcements          Create announcement (Admin only)
+DELETE /api/admin/announcements/:id      Delete announcement (Admin only)
 ```
 
 ---
 
 ## ⚙️ Running Locally
 
-### Prerequisites
-- Node.js v18+
-- Angular CLI (`npm install -g @angular/cli`)
-- MongoDB Atlas account
-
-### Backend Setup
+### Backend
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend/` folder:
+Create `.env` file in `backend/`:
 ```
-MONGO_URI=your_mongodb_atlas_uri
-JWT_SECRET=your_secret_key
-PORT=3000
+MONGO_URI=Mongodb uri
+JWT_SECRET= JWT secret
 ```
 
-Seed the database:
 ```bash
 npm run seed
-```
-
-Start the backend:
-```bash
 npm run dev
 ```
 
-### Frontend Setup
+### Frontend
 ```bash
 cd frontend
-npm install
+npm install --legacy-peer-deps
 ng serve
 ```
 
-Open `http://localhost:4200` in your browser.
+Open `http://localhost:4200`
 
 ---
 
 ## 🔐 Security
 
-- Passwords are hashed using **Bcrypt** — never stored as plain text
-- All protected routes require a valid **JWT token**
-- **Role-based access** — Admin routes are blocked for General Users on both frontend and backend
-- JWT token automatically expires after **1 day**
+- Passwords hashed with **Bcrypt** — never stored as plain text
+- All API routes protected with **JWT middleware**
+- Admin routes blocked on both frontend (route guard) and backend (role middleware)
+- JWT tokens expire after **1 day**
 
 ---
 
-## 💡 Design Decisions
+## 💡 Key Design Decisions
 
-- **MongoDB Atlas** chosen over local storage for real-world cloud database experience
-- **Activity logs** are recorded dynamically on every login — not dummy data
-- **forkJoin** used for parallel API calls on dashboard load — demonstrates async programming
-- **Lazy loading** on Admin module — improves initial load performance
-- **Standalone components** used throughout — follows latest Angular best practices
+- **MongoDB Atlas** — cloud database to demonstrate real-world deployment knowledge
+- **Activity logs recorded dynamically** — real login timestamps, not hardcoded dummy data
+- **forkJoin for parallel API calls** — demonstrates proper async programming with RxJS
+- **Lazy loading on Admin module** — improves app performance
+- **Standalone components** — follows the latest Angular 17+ best practices
 
+---
