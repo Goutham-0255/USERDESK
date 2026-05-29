@@ -4,64 +4,105 @@
   align-items: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 2rem;
+}
 
-  .login-card {
-    width: 420px;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+.login-card {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+}
 
-    .logo-section {
-      text-align: center;
-      width: 100%;
-      margin-bottom: 2rem;
+.logo-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
 
-      .app-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #0f3460;
-        margin: 0;
-        letter-spacing: 2px;
-      }
+  .app-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #0f3460;
+    margin: 0;
+    letter-spacing: 3px;
+  }
 
-      .app-subtitle {
-        color: #666;
-        margin: 0.5rem 0 0 0;
-        font-size: 0.9rem;
-      }
+  .app-subtitle {
+    color: #888;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.95rem;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .input-field {
+    padding: 0.85rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fafafa;
+    color: #333;
+    appearance: auto;
+
+    &:focus {
+      border-color: #0f3460;
+      background: white;
     }
+  }
 
-    .full-width {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
+  .field-error {
+    color: #c62828;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+}
 
-    .login-btn {
-      height: 48px;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-top: 0.5rem;
+.error-box {
+  background: #ffebee;
+  color: #c62828;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
 
-      mat-spinner {
-        display: inline-block;
-        margin: auto;
-      }
-    }
+.login-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #0f3460;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
 
+  &:hover {
+    background: #1a4a8a;
+  }
 
-    .error-box {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: #ffebee;
-        color: #c62828;
-        padding: 0.75rem 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-
-        mat-icon { font-size: 1.2rem; width: 1.2rem; height: 1.2rem; }
-    }
+  &:disabled {
+    background: #aaa;
+    cursor: not-allowed;
   }
 }

@@ -1,59 +1,56 @@
 <div class="login-container">
-  <mat-card class="login-card">
-    <mat-card-header>
-      <div class="logo-section">
-        <h1 class="app-title">UserDesk</h1>
-        <p class="app-subtitle">User Management Platform</p>
+  <div class="login-card">
+    <div class="logo-section">
+      <h1 class="app-title">UserDesk</h1>
+      <p class="app-subtitle">User Management Platform</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="input-group">
+        <label>User ID</label>
+        <input
+          class="input-field"
+          formControlName="userId"
+          placeholder="Enter your User ID" />
+        <span class="field-error" *ngIf="loginForm.get('userId')?.hasError('required') && loginForm.get('userId')?.touched">
+          User ID is required
+        </span>
       </div>
-    </mat-card-header>
 
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          class="input-field"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password" />
+        <span class="field-error" *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+          Password is required
+        </span>
+      </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>User ID</mat-label>
-          <input matInput formControlName="userId" placeholder="Enter your User ID" />
-          <mat-error *ngIf="loginForm.get('userId')?.hasError('required')">
-            User ID is required
-          </mat-error>
-        </mat-form-field>
+      <div class="input-group">
+        <label>Role</label>
+        <select class="input-field" formControlName="role">
+          <option value="" disabled>Select your role</option>
+          <option value="General User">General User</option>
+          <option value="Admin">Admin</option>
+        </select>
+        <span class="field-error" *ngIf="loginForm.get('role')?.hasError('required') && loginForm.get('role')?.touched">
+          Role is required
+        </span>
+      </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" placeholder="Enter your password" />
-          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
-            Password is required
-          </mat-error>
-        </mat-form-field>
+      <div class="error-box" *ngIf="errorMessage">
+        <span>⚠️ {{ errorMessage }}</span>
+      </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Role</mat-label>
-          <mat-select formControlName="role">
-            <mat-option value="General User">General User</mat-option>
-            <mat-option value="Admin">Admin</mat-option>
-          </mat-select>
-          <mat-error *ngIf="loginForm.get('role')?.hasError('required')">
-            Role is required
-          </mat-error>
-        </mat-form-field>
+      <button type="submit" class="login-btn" [disabled]="loading">
+        <span *ngIf="!loading">Login</span>
+        <span *ngIf="loading">Please wait...</span>
+      </button>
 
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          class="full-width login-btn"
-          [disabled]="loading">
-          <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-          <span *ngIf="!loading">Login</span>
-        </button>
-
-
-        <div class="error-box" *ngIf="errorMessage">
-            <mat-icon>error</mat-icon>
-            <span>{{ errorMessage }}</span>
-        </div>
-
-      </form>
-    </mat-card-content>
-  </mat-card>
+    </form>
+  </div>
 </div>
