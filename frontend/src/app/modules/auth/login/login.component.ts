@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   errorMessage = '';
@@ -46,6 +46,28 @@ export class LoginComponent {
       userId: ['', Validators.required],
       password: ['', Validators.required],
       role: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
+  fillAdminCredentials(): void {
+    this.loginForm.patchValue({
+      userId: 'user005',
+      password: 'admin123',
+      role: 'Admin'
+    });
+  }
+
+  fillUserCredentials(): void {
+    this.loginForm.patchValue({
+      userId: 'user006',
+      password: 'user123',
+      role: 'General User'
     });
   }
 

@@ -106,3 +106,55 @@
     cursor: not-allowed;
   }
 }
+
+.demo-credentials {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px dashed #e0e0e0;
+  text-align: center;
+
+  .demo-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.8rem;
+  }
+
+  .demo-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+
+    .demo-btn {
+      flex: 1;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid #d0d0d0;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #f8f9fa;
+      color: #333;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #e9ecef;
+        border-color: #b0b0b0;
+      }
+
+      &.admin-btn {
+        color: #0f3460;
+        border-color: #0f3460;
+        background: #eef3f9;
+        &:hover { background: #dce7f5; }
+      }
+
+      &.user-btn {
+        color: #2e7d32;
+        border-color: #2e7d32;
+        background: #e8f5e9;
+        &:hover { background: #c8e6c9; }
+      }
+    }
+  }
+}

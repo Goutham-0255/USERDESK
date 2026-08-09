@@ -12,7 +12,9 @@ A full-stack **Single Page Application** built with **Angular 21** and **Node.js
 | Role | User ID | Password |
 |------|---------|----------|
 | Admin | user005 | admin123 |
-| General User | user006 | user123
+| Admin | admin001 | Admin@123 |
+| General User | user006 | user123 |
+| General User | user001 | User@123 |
 ---
 
 ## 🛠️ Tech Stack

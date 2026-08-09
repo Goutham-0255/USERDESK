@@ -18,9 +18,25 @@ const seed = async () => {
     // Hash passwords
     const adminPassword = await bcrypt.hash('Admin@123', 10);
     const userPassword = await bcrypt.hash('User@123', 10);
+    const admin123Password = await bcrypt.hash('admin123', 10);
+    const user123Password = await bcrypt.hash('user123', 10);
 
     // Create users
     await User.insertMany([
+      {
+        name: 'System Admin',
+        email: 'admin005@userdesk.com',
+        userId: 'user005',
+        password: admin123Password,
+        role: 'Admin'
+      },
+      {
+        name: 'Standard User',
+        email: 'user006@userdesk.com',
+        userId: 'user006',
+        password: user123Password,
+        role: 'General User'
+      },
       {
         name: 'Admin User',
         email: 'admin@userdesk.com',

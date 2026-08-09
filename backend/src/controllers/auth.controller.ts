@@ -8,11 +8,15 @@ export const login = async (req: Request, res: Response) => {
   const { userId, password, role } = req.body;
 
   try {
-    // Find user by userId and role
-    const user = await User.findOne({ userId, role });
+    // Find user by userId (case-insensitive)
+    const user = await User.findOne({ userId: { $regex: new RegExp(`^${userId}$`, 'i') } });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    if (role && user.role !== role) {
+      return res.status(401).json({ message: `Role mismatch: User ${user.userId} is registered as "${user.role}"` });
     }
 
     // Check password
