@@ -16,6 +16,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check
+app.get('/api/health', (req, res) => {
+  const dbState = mongoose.connection.readyState;
+  const dbStatus = dbState === 1 ? 'connected' : dbState === 2 ? 'connecting' : 'disconnected';
+  res.json({ status: 'ok', database: dbStatus });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -23,14 +30,21 @@ app.use('/api/records', recordRoutes);
 app.use('/api/activity', activityRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Connect to MongoDB and start server
-mongoose.connect(process.env.MONGO_URI as string)
-  .then(() => {
-    console.log('MongoDB connected');
-    app.listen(process.env.PORT || 3000, () => {
-      console.log('Server running on port 3000');
-    });
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+// Connect to MongoDB
+if (process.env.MONGO_URI) {
+  mongoose.connect(process.env.MONGO_URI as string, {
+    serverSelectionTimeoutMS: 5000
   })
-  .catch(err => console.error(err));
+    .then(() => console.log('MongoDB connected successfully'))
+    .catch(err => console.error('MongoDB connection error:', err.message));
+} else {
+  console.error('MONGO_URI is not defined in environment variables');
+}
 
 export default app;

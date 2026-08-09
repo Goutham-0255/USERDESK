@@ -86,7 +86,15 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.message || 'Invalid credentials. Please try again.';
+        if (err.name === 'TimeoutError') {
+          this.errorMessage = 'Connection timed out. Please verify the backend server is running on http://localhost:3000.';
+        } else if (err.status === 0) {
+          this.errorMessage = 'Backend server offline. Please start the backend server on port 3000.';
+        } else if (err.status === 503) {
+          this.errorMessage = err.error?.message || 'Database offline. Check MongoDB connection.';
+        } else {
+          this.errorMessage = err.error?.message || 'Invalid credentials. Please try again.';
+        }
         this.cdr.detectChanges();
       }
     });

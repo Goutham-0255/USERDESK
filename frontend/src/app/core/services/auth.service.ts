@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, timeout } from 'rxjs/operators';
 import { User } from '../../shared/models/user.model';
 import { API_URL } from '../config/api.config';
 
@@ -23,6 +23,7 @@ export class AuthService {
 
   login(userId: string, password: string, role: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, { userId, password, role }).pipe(
+      timeout(8000),
       tap((res: any) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
