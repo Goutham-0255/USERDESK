@@ -23,7 +23,7 @@ export class AuthService {
 
   login(userId: string, password: string, role: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, { userId, password, role }).pipe(
-      timeout(8000),
+      timeout(60000),
       tap((res: any) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));

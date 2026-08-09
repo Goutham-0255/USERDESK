@@ -86,12 +86,18 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false;
+        const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
         if (err.name === 'TimeoutError') {
-          this.errorMessage = 'Connection timed out. Please verify the backend server is running on http://localhost:3000.';
+          this.errorMessage = isLocal
+            ? 'Connection timed out. Please check if local backend is running on port 3000.'
+            : 'Backend server is taking long to respond (Render free instances may take 30-50s to wake up). Please try again.';
         } else if (err.status === 0) {
-          this.errorMessage = 'Backend server offline. Please start the backend server on port 3000.';
+          this.errorMessage = isLocal
+            ? 'Backend server offline. Please start local backend on port 3000.'
+            : 'Unable to connect to live backend on Render (https://userdesk-backend.onrender.com). Server may be waking up.';
         } else if (err.status === 503) {
-          this.errorMessage = err.error?.message || 'Database offline. Check MongoDB connection.';
+          this.errorMessage = err.error?.message || 'Database connection offline. Please check MongoDB connection.';
         } else {
           this.errorMessage = err.error?.message || 'Invalid credentials. Please try again.';
         }
